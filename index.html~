@@ -733,8 +733,7 @@ Clear
 <div id="color-7" class="color_box" onClick="chooseColor(7)"></div>
 </div>
 
-<div id="bottomline">Try <a href="http://monadpad.com">our</a> 
-<a href="http://sketchatune.com">Music</a> and <a href="http://cloudmoviecompany.com">Animation</a> Apps</a></div>
+<div id="bottomline">Try <a href="http://sketchatune.com">drawing music</a></div>
 
 <canvas id="mainCanvas" width="300" height="400" style="background-color:black;border:1px solid #c3c3c3;">
 Your browser does not support the canvas element.
