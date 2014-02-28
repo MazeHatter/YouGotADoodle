@@ -370,7 +370,7 @@ function postImageToFacebook( authToken, filename, mimeType, imageData, message 
     xhr.open( 'POST', 'https://graph.facebook.com/me/photos?access_token=' + authToken, true );
     xhr.onload = function () {
     
-        console.log( xhr.responseText );
+        alert( xhr.responseText );
     
     	var posted = document.getElementById("posted-to-facebook");
     	posted.style.display = "block";
