@@ -406,11 +406,13 @@ function postCanvasToFacebook() {
 		postImageToFacebook(response.authResponse.accessToken, 
 		    "huh", "image/png", decodedPng, "Made at http://yougotadoodle.com");
 	  } else if (response.status === "not_authorized") {
+	        alert("posting to facebook 3.1");
 		 FB.login(function(response) {
 			postImageToFacebook(response.authResponse.accessToken, 
 			    "huh", "image/png", decodedPng, "Made at http://yougotadoodle.com");
 		 }, {scope: "publish_stream"});
 	  } else {
+	        alert("posting to facebook 3.2");
 		 FB.login(function(response)  { 
 			postImageToFacebook(response.authResponse.accessToken, 
 			    "huh", "image/png", decodedPng, "Made at http://yougotadoodle.com");
