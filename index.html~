@@ -22,14 +22,7 @@ if ( XMLHttpRequest.prototype.sendAsBinary === undefined ) {
 var id = 0;
 var viewer;
 window.onload = function() {
-/*	if (navigator.userAgent.indexOf('Android') != -1){
-		document.getElementById("close_android_ad").onclick = function(){
-			document.getElementById("android_ad").style.visibility = "hidden";
-			return false;
-		}
-		document.getElementById("android_ad").style.visibility = "visible";
-	}
-*/
+
 	var c=document.getElementById("mainCanvas");
 	var ctx=c.getContext("2d");
 
@@ -622,6 +615,23 @@ right:6px;
 /*a, a:visited {color:white;}*/
 
 .warning {color:red;}
+
+
+#posted-to-facebook {
+	border-width:4px;
+	border-color:gray;
+	border-style:solid;
+	border-radius:7px;
+	background-color:white;
+	font-size:20pt;
+	width:50%;
+	position:absolute;
+	left:5px;
+	top:5px;
+	display:none;
+	padding:20px;
+}
+
 </style>
 <meta property="og:image" content="http://yougotadoodle.appspot.com/img/yougotadoodle.png" />
 <meta property="og:description" content="Make your emails, texts, and tweets more personal, more fun, and more you!" />
@@ -635,6 +645,25 @@ right:6px;
 </head>
 
 <body>
+
+<div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '108330069340139',
+      status     : true,
+      xfbml      : true
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 
 <div id="button_row">
 
@@ -700,15 +729,10 @@ Url + Code: <input type="text" id="doodle-url-with-code" value=""/>
 <div class="cancel_button" onClick="document.getElementById('private-dialog').style.display = 'none'">Close This Dialog</div>
 </div>
 
-
-<div id="android_ad" class="button">Get the Android App!<br/>
-<a href="https://play.google.com/store/apps/details?id=com.monadpad.teledoodle"><img style="height:80px;width:80px;" src="img/market114.jpg" /></a>
-<a href="http://www.amazon.com/gp/mas/dl/android?p=com.monadpad.teledoodle"><img style="height:80px;width:80px;" src="img/amazon114.png" /></a>
-<br/>or<br/>
-<a href='http://yougotadoodle.appspot.com/d.jsp?id=null'>I already have the App!</a>
-<br/>or<br/>
-<a href="#" id="close_android_ad">(no thanks, close dialog)</a>
+<div id="posted-to-facebook">
+This Doodle has been posted to your Facebook page!
 </div>
+
 
 <div id="ismobile">
 </div>
