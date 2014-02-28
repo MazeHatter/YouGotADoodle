@@ -647,46 +647,26 @@ right:6px;
 <!--<link ref="apple-touch-startup-image" href="http://yougotadoodle.appspot.com/img/drawmusicsplash.png" />-->
 <meta name="apple-mobile-web-app-capable" content="yes" />
    
-<script src="phonegap.js"></script>
-<script src="device.js"></script>
-<script src="https://connect.facebook.net/en_US/all.js"></script>
-<script src="cdv-plugin-fb-connect.js"></script>
-<script src="facebook-js-sdk.js"></script>
-
 </head>
 
 <body>
 
 
-<!--<div id="fb-root"></div>
+        <div id="fb-root"></div>
+        <!-- cordova -->
+		<script src="phonegap.js"></script>
+	    <!-- cordova facebook plugin -->
+		<script src="cdv-plugin-fb-connect.js"></script>
+	    <!-- facebook js sdk -->
+		<script src="facebook-js-sdk.js"></script>
+        
 <script>
-  window.fbAsyncInit = function() {
-  try {
-    FB.init({
-      appId      : '108330069340139',
-      status     : true,
-      xfbml      : true
-    });
-    }
-    catch (e) {
-        alert(e.message);
-    }
-  };
-
-try {
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/all.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-   }
-   catch (e) {
-    alert(e.message);
-    }
+     <!-- These are the notifications that are displayed to the user through pop-ups if the above JS files does not exist in the same directory-->
+    if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
+    if (typeof CDV == 'undefined') alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
+    if (typeof FB == 'undefined') alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
 </script>
--->
+
 <div id="button_row">
 
 
