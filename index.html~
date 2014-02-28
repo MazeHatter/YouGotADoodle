@@ -349,6 +349,9 @@ function setCanvasSize() {
 
 function postImageToFacebook( authToken, filename, mimeType, imageData, message )
 {
+
+    alert("posting to facebook 4");
+    
     // this is the multipart/form-data boundary we'll use
     var boundary = '----ThisIsTheBoundary1234567890';   
     // let's encode our image file, which is contained in the var
@@ -364,10 +367,16 @@ function postImageToFacebook( authToken, filename, mimeType, imageData, message 
     formData += 'Content-Disposition: form-data; name="message"\r\n\r\n';
     formData += message + '\r\n'
     formData += '--' + boundary + '--\r\n';
+
+    alert("posting to facebook 5");
     
+        
     var xhr = new XMLHttpRequest();
     xhr.open( 'POST', 'https://graph.facebook.com/me/photos?access_token=' + authToken, true );
     xhr.onload = function () {
+    
+        alert("posting to facebook 6");
+    
     	var posted = document.getElementById("posted-to-facebook");
     	posted.style.display = "block";
     	setTimeout(function () {
@@ -382,11 +391,20 @@ function postImageToFacebook( authToken, filename, mimeType, imageData, message 
 };
 
 function postCanvasToFacebook() {
+
+    alert("posting to facebook 1");
+
 	var canvas = document.getElementById("mainCanvas");
 	var data = canvas.toDataURL("image/png");
 	var encodedPng = data.substring(data.indexOf(',') + 1, data.length);
 	var decodedPng = Base64Binary.decode(encodedPng);
+
+    alert("posting to facebook 2");
+
 	FB.getLoginStatus(function(response) {
+
+      alert("posting to facebook 3");
+
 	  if (response.status === "connected") {	
 		postImageToFacebook(response.authResponse.accessToken, 
 		    "huh", "image/png", decodedPng, "Made at http://yougotadoodle.com");
@@ -477,7 +495,7 @@ padding:0px;
 }
 #undo_button {
 	top:0px;
-	right:76px;
+	right:73px;
 }
 
 
@@ -661,10 +679,20 @@ right:6px;
 		<script src="facebook-js-sdk.js"></script>
         
 <script>
-     <!-- These are the notifications that are displayed to the user through pop-ups if the above JS files does not exist in the same directory-->
-    if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
-    if (typeof CDV == 'undefined') alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
-    if (typeof FB == 'undefined') alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
+    var allCool = true;
+    if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) {
+        alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
+        allCool = false;
+    }
+    if (typeof CDV == 'undefined') {
+        alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
+        allCool = false;
+    }
+    if (typeof FB == 'undefined') {
+        alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
+        allCool = false;
+    }
+    
 </script>
 
 <div id="button_row">
