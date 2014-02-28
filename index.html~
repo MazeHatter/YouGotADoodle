@@ -413,11 +413,11 @@ function postCanvasToFacebook() {
 		 }, {scope: "publish_stream"});
 	  } else {
 		 FB.login(function(response)  { 
-		     FB.login(function(response) {
+//		     FB.login(function(response) {
 			    postImageToFacebook(response.authResponse.accessToken, 
 			        "huh", "image/png", decodedPng, "Made at http://yougotadoodle.com");
-		     }, {scope: "publish_stream"});
-		 }, {scope: "basic_info"}); 
+//		     }, {scope: "publish_stream"});
+		 }, {scope: "basic_info,publish_stream"}); 
 	  }
 	 });
 
