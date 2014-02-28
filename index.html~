@@ -384,6 +384,7 @@ function postImageToFacebook( authToken, filename, mimeType, imageData, message 
     	}, 5000);
     };
 	xhr.onerror = function() {
+        alert("posting to facebook ERROR");
         console.log( xhr.responseText );
     };
     xhr.setRequestHeader( "Content-Type", "multipart/form-data; boundary=" + boundary );
