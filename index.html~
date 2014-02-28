@@ -347,9 +347,12 @@ function setCanvasSize() {
 
 }
 
+
+
+
 function postImageToFacebook( authToken, filename, mimeType, imageData, message )
 {
-
+    
     // this is the multipart/form-data boundary we'll use
     var boundary = '----ThisIsTheBoundary1234567890';   
     // let's encode our image file, which is contained in the var
@@ -378,7 +381,7 @@ function postImageToFacebook( authToken, filename, mimeType, imageData, message 
     		posted.style.display = "none";
     	}, 5000);
     };
-	xhr.onerror = function() {
+    xhr.onerror = function() {
         alert("posting to facebook ERROR");
         console.log( xhr.responseText );
     };
@@ -405,14 +408,15 @@ function postCanvasToFacebook() {
 		 }, {scope: "publish_stream"});
 	  } else {
 		 FB.login(function(response)  { 
-			postImageToFacebook(response.authResponse.accessToken, 
-			    "huh", "image/png", decodedPng, "Made at http://yougotadoodle.com");
+		     FB.login(function(response) {
+			    postImageToFacebook(response.authResponse.accessToken, 
+			        "huh", "image/png", decodedPng, "Made at http://yougotadoodle.com");
+		     }, {scope: "publish_stream"});
 		 }, {scope: "basic_info"}); 
 	  }
 	 });
 
 };
-
 
 </script>
 
