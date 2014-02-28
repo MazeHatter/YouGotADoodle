@@ -350,8 +350,6 @@ function setCanvasSize() {
 function postImageToFacebook( authToken, filename, mimeType, imageData, message )
 {
 
-    alert("posting to facebook 4");
-    
     // this is the multipart/form-data boundary we'll use
     var boundary = '----ThisIsTheBoundary1234567890';   
     // let's encode our image file, which is contained in the var
@@ -368,14 +366,11 @@ function postImageToFacebook( authToken, filename, mimeType, imageData, message 
     formData += message + '\r\n'
     formData += '--' + boundary + '--\r\n';
 
-    alert("posting to facebook 5");
-    
-        
     var xhr = new XMLHttpRequest();
     xhr.open( 'POST', 'https://graph.facebook.com/me/photos?access_token=' + authToken, true );
     xhr.onload = function () {
     
-        alert("posting to facebook 6");
+        alert( xhr.responseText );
     
     	var posted = document.getElementById("posted-to-facebook");
     	posted.style.display = "block";
@@ -404,13 +399,11 @@ function postCanvasToFacebook() {
 		postImageToFacebook(response.authResponse.accessToken, 
 		    "huh", "image/png", decodedPng, "Made at http://yougotadoodle.com");
 	  } else if (response.status === "not_authorized") {
-	        alert("posting to facebook 3.1");
 		 FB.login(function(response) {
 			postImageToFacebook(response.authResponse.accessToken, 
 			    "huh", "image/png", decodedPng, "Made at http://yougotadoodle.com");
 		 }, {scope: "publish_stream"});
 	  } else {
-	        alert("posting to facebook 3.2");
 		 FB.login(function(response)  { 
 			postImageToFacebook(response.authResponse.accessToken, 
 			    "huh", "image/png", decodedPng, "Made at http://yougotadoodle.com");
@@ -419,6 +412,8 @@ function postCanvasToFacebook() {
 	 });
 
 };
+
+
 </script>
 
 <script src="base64binary.js"></script>
