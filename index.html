@@ -7,17 +7,22 @@
 
 var topurl = "https://yougotadoodle.appspot.com";
 
+
+//from: http://stackoverflow.com/a/5303242/945521
+if ( XMLHttpRequest.prototype.sendAsBinary === undefined ) {
+ XMLHttpRequest.prototype.sendAsBinary = function(string) {
+     var bytes = Array.prototype.map.call(string, function(c) {
+         return c.charCodeAt(0) & 0xff;
+     });
+     this.send(new Uint8Array(bytes).buffer);
+ };
+};
+
+
 var id = 0;
 var viewer;
 window.onload = function() {
-/*	if (navigator.userAgent.indexOf('Android') != -1){
-		document.getElementById("close_android_ad").onclick = function(){
-			document.getElementById("android_ad").style.visibility = "hidden";
-			return false;
-		}
-		document.getElementById("android_ad").style.visibility = "visible";
-	}
-*/
+
 	var c=document.getElementById("mainCanvas");
 	var ctx=c.getContext("2d");
 
@@ -71,7 +76,8 @@ function draw(){
 	var xsize = c.clientWidth;
 	var ysize = c.clientHeight;
 	
-	ctx.clearRect(0, 0, c.width, c.height);	
+	ctx.fillStyle = "black";
+	ctx.fillRect(0, 0, c.width, c.height);	
 	
 	for (var ip = 0; ip < viewer.paths.length; ip++){
 		ctx.beginPath();
@@ -224,7 +230,8 @@ function undoButton(){
 }
 
 function facebookButton(){
-	shareButton('http://www.facebook.com/sharer/sharer.php?t=YouGotADoodle&u=https%3A%2F%2Fyougotadoodle.appspot.com%2Fd.jsp');
+    postCanvasToFacebook();
+//	shareButton('http://www.facebook.com/sharer/sharer.php?t=YouGotADoodle&u=https%3A%2F%2Fyougotadoodle.appspot.com%2Fd.jsp');
 }
 
 function twitterButton(){
@@ -327,10 +334,74 @@ function setCanvasSize() {
 	c.style.height = height + "px";
 	c.height = height;
 	c.width = width;
-	c.getContext("2d").lineWidth = 5;
+	var ctx = c.getContext("2d")
+	ctx.lineWidth = 5;
+
+	ctx.fillStyle = "black";
+	ctx.fillRect(0, 0, c.width, c.height);
+
 }
 
+function postImageToFacebook( authToken, filename, mimeType, imageData, message )
+{
+    // this is the multipart/form-data boundary we'll use
+    var boundary = '----ThisIsTheBoundary1234567890';   
+    // let's encode our image file, which is contained in the var
+    var formData = '--' + boundary + '\r\n'
+    formData += 'Content-Disposition: form-data; name="source"; filename="' + filename + '"\r\n';
+    formData += 'Content-Type: ' + mimeType + '\r\n\r\n';
+    for ( var i = 0; i < imageData.length; ++i )
+    {
+        formData += String.fromCharCode( imageData[ i ] & 0xff );
+    }
+    formData += '\r\n';
+    formData += '--' + boundary + '\r\n';
+    formData += 'Content-Disposition: form-data; name="message"\r\n\r\n';
+    formData += message + '\r\n'
+    formData += '--' + boundary + '--\r\n';
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open( 'POST', 'https://graph.facebook.com/me/photos?access_token=' + authToken, true );
+    xhr.onload = function () {
+    	var posted = document.getElementById("posted-to-facebook");
+    	posted.style.display = "block";
+    	setTimeout(function () {
+    		posted.style.display = "none";
+    	}, 5000);
+    };
+	xhr.onerror = function() {
+        console.log( xhr.responseText );
+    };
+    xhr.setRequestHeader( "Content-Type", "multipart/form-data; boundary=" + boundary );
+    xhr.sendAsBinary( formData );
+};
+
+function postCanvasToFacebook() {
+	var canvas = document.getElementById("mainCanvas");
+	var data = canvas.toDataURL("image/png");
+	var encodedPng = data.substring(data.indexOf(',') + 1, data.length);
+	var decodedPng = Base64Binary.decode(encodedPng);
+	FB.getLoginStatus(function(response) {
+	  if (response.status === "connected") {	
+		postImageToFacebook(response.authResponse.accessToken, 
+		    "huh", "image/png", decodedPng, "Made at http://yougotadoodle.com");
+	  } else if (response.status === "not_authorized") {
+		 FB.login(function(response) {
+			postImageToFacebook(response.authResponse.accessToken, 
+			    "huh", "image/png", decodedPng, "Made at http://yougotadoodle.com");
+		 }, {scope: "publish_stream"});
+	  } else {
+		 FB.login(function(response)  { 
+			postImageToFacebook(response.authResponse.accessToken, 
+			    "huh", "image/png", decodedPng, "Made at http://yougotadoodle.com");
+		 }, {scope: "publish_stream"});
+	  }
+	 });
+
+};
 </script>
+
+<script src="base64binary.js"></script>
 
 
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -544,6 +615,23 @@ right:6px;
 /*a, a:visited {color:white;}*/
 
 .warning {color:red;}
+
+
+#posted-to-facebook {
+	border-width:4px;
+	border-color:gray;
+	border-style:solid;
+	border-radius:7px;
+	background-color:white;
+	font-size:20pt;
+	width:50%;
+	position:absolute;
+	left:5px;
+	top:5px;
+	display:none;
+	padding:20px;
+}
+
 </style>
 <meta property="og:image" content="http://yougotadoodle.appspot.com/img/yougotadoodle.png" />
 <meta property="og:description" content="Make your emails, texts, and tweets more personal, more fun, and more you!" />
@@ -557,6 +645,25 @@ right:6px;
 </head>
 
 <body>
+
+<div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '108330069340139',
+      status     : true,
+      xfbml      : true
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 
 <div id="button_row">
 
@@ -622,15 +729,10 @@ Url + Code: <input type="text" id="doodle-url-with-code" value=""/>
 <div class="cancel_button" onClick="document.getElementById('private-dialog').style.display = 'none'">Close This Dialog</div>
 </div>
 
-
-<div id="android_ad" class="button">Get the Android App!<br/>
-<a href="https://play.google.com/store/apps/details?id=com.monadpad.teledoodle"><img style="height:80px;width:80px;" src="img/market114.jpg" /></a>
-<a href="http://www.amazon.com/gp/mas/dl/android?p=com.monadpad.teledoodle"><img style="height:80px;width:80px;" src="img/amazon114.png" /></a>
-<br/>or<br/>
-<a href='http://yougotadoodle.appspot.com/d.jsp?id=null'>I already have the App!</a>
-<br/>or<br/>
-<a href="#" id="close_android_ad">(no thanks, close dialog)</a>
+<div id="posted-to-facebook">
+This Doodle has been posted to your Facebook page!
 </div>
+
 
 <div id="ismobile">
 </div>

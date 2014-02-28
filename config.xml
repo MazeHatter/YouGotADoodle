@@ -7,6 +7,11 @@
 
     <name>You Got A Doodle!</name>
 
+    <gap:plugin name="com.phonegap.plugins.facebookconnect">
+        <param name="APP_ID" value="108330069340139" />
+        <param name="APP_NAME" value="You Got A Doodle!" />
+    </gap:plugin>
+
     <description>
         Send doodles to your friends!
     </description>
