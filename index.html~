@@ -235,7 +235,7 @@ function facebookButton(){
 }
 
 function twitterButton(){
-	shareButton( "http://twitter.com/home?status=https%3A%2F%2Fyougotadoodle.appspot.com%2Fd.jsp");
+	shareButton( "https://twitter.com/home?status=https%3A%2F%2Fyougotadoodle.appspot.com%2Fd.jsp");
 }
 
 function emailButton(){
@@ -649,13 +649,19 @@ right:6px;
 <div id="fb-root"></div>
 <script>
   window.fbAsyncInit = function() {
+  try {
     FB.init({
       appId      : '108330069340139',
       status     : true,
       xfbml      : true
     });
+    }
+    catch (e) {
+        alert(e.message);
+    }
   };
 
+try {
   (function(d, s, id){
      var js, fjs = d.getElementsByTagName(s)[0];
      if (d.getElementById(id)) {return;}
@@ -663,6 +669,10 @@ right:6px;
      js.src = "//connect.facebook.net/en_US/all.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
+   }
+   catch (e) {
+    alert(e.message);
+    }
 </script>
 
 <div id="button_row">
