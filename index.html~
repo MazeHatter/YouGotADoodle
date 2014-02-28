@@ -230,7 +230,12 @@ function undoButton(){
 }
 
 function facebookButton(){
-    postCanvasToFacebook();
+    try {
+        postCanvasToFacebook();
+    }
+    catch (err) {
+        alert(err.message);
+    }
 //	shareButton('http://www.facebook.com/sharer/sharer.php?t=YouGotADoodle&u=https%3A%2F%2Fyougotadoodle.appspot.com%2Fd.jsp');
 }
 
