@@ -373,13 +373,18 @@ function postImageToFacebook( authToken, filename, mimeType, imageData, message 
     xhr.open( 'POST', 'https://graph.facebook.com/me/photos?access_token=' + authToken, true );
     xhr.onload = function () {
     
-        alert( xhr.responseText );
+        var oresponse = JSON.parse( xhr.responseText );
+        if (oresponse.post_id) {
+        	var posted = document.getElementById("posted-to-facebook");
+        	posted.style.display = "block";
+        	setTimeout(function () {
+        		posted.style.display = "none";
+        	}, 5000);
+        }
+        else {
+            alert("posting to facebook ERROR");        
+        }
     
-    	var posted = document.getElementById("posted-to-facebook");
-    	posted.style.display = "block";
-    	setTimeout(function () {
-    		posted.style.display = "none";
-    	}, 5000);
     };
     xhr.onerror = function() {
         alert("posting to facebook ERROR");
