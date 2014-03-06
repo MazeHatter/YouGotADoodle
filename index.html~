@@ -301,6 +301,12 @@ function shareButton(url){
 
 		xhr.onreadystatechange = function(){
 			if (xhr.readyState == 4){
+			
+			    if (xhr.status != 200) {
+			        alert(xhr.responseText);
+			        return;
+			    }
+			
 				var nid = xhr.responseText;
 				url = url + '%3Fid%3D' + nid ;
 				

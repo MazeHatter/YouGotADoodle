@@ -303,7 +303,7 @@ function shareButton(url){
 			if (xhr.readyState == 4){
 			
 			    if (xhr.status != 200) {
-			        alert(xhr.responseText);
+			        alert("problem " + xhr.status + ": " + xhr.responseText);
 			        return;
 			    }
 			
