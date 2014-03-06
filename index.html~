@@ -243,12 +243,12 @@ function twitterButton(){
 
     var url = "https://twitter.com/home?status=https%3A%2F%2Fyougotadoodle.appspot.com%2Fd.jsp"
 
-     var ref = window.open('http://apache.org', '_blank', 'location=yes');
+     var ref = window.open(url, '_blank', 'location=yes');
      ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
      ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
      ref.addEventListener('exit', function() { alert(event.type); });
 
-//	shareButton( );
+//	shareButton(url);
 }
 
 function emailButton(){
