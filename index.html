@@ -240,7 +240,15 @@ function facebookButton(){
 }
 
 function twitterButton(){
-	shareButton( "https://twitter.com/home?status=https%3A%2F%2Fyougotadoodle.appspot.com%2Fd.jsp");
+
+    var url = "https://twitter.com/home?status=https%3A%2F%2Fyougotadoodle.appspot.com%2Fd.jsp"
+
+     var ref = window.open(url, '_blank', 'location=yes');
+     ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
+     ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
+     ref.addEventListener('exit', function() { alert(event.type); });
+
+//	shareButton(url);
 }
 
 function emailButton(){

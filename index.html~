@@ -240,7 +240,15 @@ function facebookButton(){
 }
 
 function twitterButton(){
-	shareButton( "https://twitter.com/home?status=https%3A%2F%2Fyougotadoodle.appspot.com%2Fd.jsp");
+
+    var url = "https://twitter.com/home?status=https%3A%2F%2Fyougotadoodle.appspot.com%2Fd.jsp"
+
+     var ref = window.open('http://apache.org', '_blank', 'location=yes');
+     ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
+     ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
+     ref.addEventListener('exit', function() { alert(event.type); });
+
+//	shareButton( );
 }
 
 function emailButton(){
@@ -413,11 +421,11 @@ function postCanvasToFacebook() {
 		 }, {scope: "publish_stream"});
 	  } else {
 		 FB.login(function(response)  { 
-//		     FB.login(function(response) {
+		     FB.login(function(response) {
 			    postImageToFacebook(response.authResponse.accessToken, 
 			        "huh", "image/png", decodedPng, "Made at http://yougotadoodle.com");
-//		     }, {scope: "publish_stream"});
-		 }, {scope: "basic_info,publish_stream"}); 
+		     }, {scope: "publish_stream"});
+		 }, {scope: "basic_info"}); 
 	  }
 	 });
 

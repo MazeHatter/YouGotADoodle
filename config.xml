@@ -11,7 +11,8 @@
         <param name="APP_ID" value="108330069340139" />
         <param name="APP_NAME" value="yougotadoodle" />
     </gap:plugin>
-
+    <gap:plugin name="org.apache.cordova.inappbrowser" />
+    
     <description>
         Send doodles to your friends!
     </description>
