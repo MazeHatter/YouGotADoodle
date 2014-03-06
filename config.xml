@@ -17,6 +17,8 @@
         Send doodles to your friends!
     </description>
 
+    <preference name="permissions" value="none"/>
+
     <icon src="img/doodlehi114.png"/>
 
     <access origin="*"  />
