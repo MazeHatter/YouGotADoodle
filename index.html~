@@ -303,11 +303,16 @@ function shareButton(url){
 			if (xhr.readyState == 4){
 				var nid = xhr.responseText;
 				url = url + '%3Fid%3D' + nid ;
-				//window.location = url; 
-				var newWindow = window.open(url, "_blank", 'location=yes'); 
+				
+				if (url.indexOf("mailto") === 0) {
+    				window.location = url;     
+				}
+	            else {
+    				var newWindow = window.open(url, "_blank", 'location=yes'); 
+				}
 				id = nid;
 			}
-		}
+		};
 		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		var params = "xy=" + doodle;
 
@@ -736,7 +741,7 @@ Clear
 <div id="color-7" class="color_box" onClick="chooseColor(7)"></div>
 </div>
 
-<div id="bottomline">Try <a href="http://sketchatune.com">drawing music</a></div>
+<div id="bottomline">Try <a href="javascript:void(0)" onclick="window.open('http://sketchatune.com', '_blank', 'location=yes')">drawing music</a></div>
 
 <canvas id="mainCanvas" width="300" height="400" style="background-color:black;border:1px solid #c3c3c3;">
 Your browser does not support the canvas element.

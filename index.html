@@ -301,13 +301,24 @@ function shareButton(url){
 
 		xhr.onreadystatechange = function(){
 			if (xhr.readyState == 4){
+			
+			    if (xhr.status != 200) {
+			        alert(xhr.responseText);
+			        return;
+			    }
+			
 				var nid = xhr.responseText;
 				url = url + '%3Fid%3D' + nid ;
-				//window.location = url; 
-				var newWindow = window.open(url, "_blank", 'location=yes'); 
+				
+				if (url.indexOf("mailto") === 0) {
+    				window.location = url;     
+				}
+	            else {
+    				var newWindow = window.open(url, "_blank", 'location=yes'); 
+				}
 				id = nid;
 			}
-		}
+		};
 		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		var params = "xy=" + doodle;
 
