@@ -243,12 +243,7 @@ function twitterButton(){
 
     var url = "https://twitter.com/home?status=https%3A%2F%2Fyougotadoodle.appspot.com%2Fd.jsp"
 
-     var ref = window.open(url, '_blank', 'location=yes');
-     ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
-     ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
-     ref.addEventListener('exit', function() { alert(event.type); });
-
-//	shareButton(url);
+	shareButton(url);
 }
 
 function emailButton(){
@@ -308,8 +303,8 @@ function shareButton(url){
 			if (xhr.readyState == 4){
 				var nid = xhr.responseText;
 				url = url + '%3Fid%3D' + nid ;
-				window.location = url; 
-				//var newWindow = window.open(url, "share"); 
+				//window.location = url; 
+				var newWindow = window.open(url, "_blank", 'location=yes'); 
 				id = nid;
 			}
 		}
