@@ -20,6 +20,10 @@
     <preference name="permissions" value="none"/>
 
     <icon src="img/doodlehi114.png"/>
+    <icon src="img/doodlehi57.png"  gap:platform="ios" width="57"  height="57"  />
+    <icon src="img/doodlehi72.png"  gap:platform="ios" width="72"  height="72"  />
+    <icon src="img/doodlehi114.png" gap:platform="ios" width="114" height="114" />
+    <icon src="img/doodlehi144.png" gap:platform="ios" width="144" height="144" />
 
     <access origin="*"  />
     <access origin="http://yougotadoodle.appspot.com"  />
